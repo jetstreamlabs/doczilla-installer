@@ -1,8 +1,9 @@
 {
   "name": "doczilla/installer",
-  "description": "Doczilla application installer.",
+  "description": "Command line installer for Doczilla documentation application.",
   "keywords": [
-    "doczilla"
+    "doczilla",
+    "installer"
   ],
   "license": "MIT",
   "authors": [
