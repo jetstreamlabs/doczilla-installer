@@ -1,5 +1,12 @@
 # Release Notes
 
+## [1.0.2](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.1...v1.0.2) (2023-12-25)
+
+
+### Bug Fixes
+
+* fixed command color, bump version ([5c04d6b](https://github.com/jetstreamlabs/doczilla-installer/commit/5c04d6beb09483c906da7d0fc731ff5af941c5c5))
+
 ## [1.0.1](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.0...v1.0.1) (2023-12-25)
 
 
