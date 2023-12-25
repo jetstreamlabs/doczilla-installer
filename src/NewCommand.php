@@ -60,7 +60,7 @@ class NewCommand extends Command
 
     $this->configurePrompts($input, $output);
 
-    $output->write(PHP_EOL.'  <fg=lime>
+    $output->write(PHP_EOL.'  <fg=bright-green>
   ________                 ________________
   ___  __ \___________________(_)__  /__  /_____ _
   __  / / /  __ \  ___/__  /_  /__  /__  /_  __ `/
