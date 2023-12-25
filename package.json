@@ -1,0 +1,50 @@
+{
+  "private": true,
+  "scripts": {
+    "pinte": "./vendor/bin/pinte",
+    "fix": "npx lint-staged",
+    "update": "composer update && npm update"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0",
+    "semantic-release": "^22.0.10"
+  },
+  "lint-staged": {
+    "*.{js,json,md}": "prettier --write .",
+    "*.php": "./vendor/bin/pinte --dirty"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "header-max-length": [
+        2,
+        "always",
+        120
+      ],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "breaking",
+          "feat",
+          "fix",
+          "refactor",
+          "docs",
+          "wip",
+          "chore",
+          "style",
+          "test"
+        ]
+      ]
+    }
+  }
+}

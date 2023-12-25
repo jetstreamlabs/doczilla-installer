@@ -1,0 +1,44 @@
+{
+  "name": "doczilla/installer",
+  "description": "Doczilla application installer.",
+  "keywords": [
+    "doczilla"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "secondman",
+      "email": "secondman@jetstreamlabs.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "illuminate/filesystem": "^10.20",
+    "illuminate/support": "^10.20",
+    "laravel/prompts": "^0.1",
+    "symfony/console": "^6.0",
+    "symfony/process": "^6.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^9.3"
+  },
+  "bin": [
+    "bin/doczilla"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Doczilla\\Installer\\Console\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Doczilla\\Installer\\Console\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

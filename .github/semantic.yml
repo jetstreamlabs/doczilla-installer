@@ -1,0 +1,14 @@
+enabled: true
+titleAndCommits: true
+allowMergeCommits: true
+types:
+  - breaking
+  - feat
+  - fix
+  - refactor
+  - docs
+  - wip
+  - chore
+scopes:
+  - style
+  - test
