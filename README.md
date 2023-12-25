@@ -1,6 +1,17 @@
 # Doczilla Installer
 
-badges coming soon ...
+<a href="https://github.com/jetstreamlabs/doczilla-installer/actions">
+  <img src="https://github.com/jetstreamlabs/doczilla-installer/workflows/tests/badge.svg" alt="Build Status">
+</a>
+<a href="https://packagist.org/packages/doczilla/installer">
+  <img src="https://img.shields.io/packagist/dt/doczilla/installer" alt="Total Downloads">
+</a>
+<a href="https://packagist.org/packages/doczilla/installer">
+  <img src="https://img.shields.io/packagist/v/doczilla/installer" alt="Latest Stable Version">
+</a>
+<a href="https://packagist.org/packages/doczilla/installer">
+  <img src="https://img.shields.io/packagist/l/doczilla/installer" alt="License">
+</a>
 
 ## Official Documentation
 
