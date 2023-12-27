@@ -1,5 +1,17 @@
 # Release Notes
 
+## [1.0.5](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.4...v1.0.5) (2023-12-27)
+
+
+### Bug Fixes
+
+* typo in wflow file, dependabot yml ([c6e16d5](https://github.com/jetstreamlabs/doczilla-installer/commit/c6e16d5256298e90b7f511b66a1055709a0aefc5))
+
+
+### Code Testing
+
+* update jobs sequentially ([5842645](https://github.com/jetstreamlabs/doczilla-installer/commit/5842645b4ce9d8acf1740f71995cbe071d23e125))
+
 ## [1.0.4](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.3...v1.0.4) (2023-12-27)
 
 
