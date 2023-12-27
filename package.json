@@ -39,10 +39,10 @@
           "fix",
           "refactor",
           "docs",
+          "tests",
           "wip",
           "chore",
-          "style",
-          "test"
+          "style"
         ]
       ]
     }

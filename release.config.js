@@ -6,10 +6,10 @@ const commitAnalyzerOptions = {
     { type: 'fix', release: 'patch' },
     { type: 'refactor', release: 'patch' },
     { type: 'docs', release: 'patch' },
+    { type: 'tests', release: 'patch' },
     { type: 'wip', release: false },
     { type: 'chore', release: false },
     { scope: 'style', release: false },
-    { scope: 'test', release: false },
   ],
   parserOpts: {
     noteKeywords: [],
@@ -27,10 +27,10 @@ const releaseNotesGeneratorOptions = {
         fix: 'Bug Fixes',
         refactor: 'Code Refactoring',
         docs: 'Documentation',
+        tests: 'Code Testing',
         wip: 'Work in Progress',
         chore: 'Maintenance',
         style: 'Code Style Adjustments',
-        test: 'Code Testing',
       };
 
       commit.type = types[commit.type];

@@ -1,0 +1,101 @@
+name: Test and Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  static_analysis:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: true
+
+    name: Static Analysis
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+      - name: Execute type checking
+        run: vendor/bin/phpstan
+
+  linux_tests:
+    runs-on: ubuntu-22.04
+    needs: static_analysis
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.2]
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Execute tests
+        run: vendor/bin/pest
+
+  release:
+    name: Run Release
+    runs-on: ubuntu-latest
+    needs: [static_analysis, linux_tests]
+
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+        env:
+          GH_TOKEN: ${{ secrets.SM_RELEASE}}
+          GITHUB_TOKEN: ${{ secrets.VERAN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.10.0'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Semantic Release
+        env:
+          GH_TOKEN: ${{ secrets.SM_RELEASE}}
+          GITHUB_TOKEN: ${{ secrets.VERAN }}
+        run: npx semantic-release
