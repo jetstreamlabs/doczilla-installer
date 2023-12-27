@@ -1,4 +1,11 @@
 {
   "prefix": "laravel",
-  "indent": "  "
+  "indent": "  ",
+  "rules": {
+    "header_comment": {
+      "comment_type": "PHPDoc",
+      "location": "after_open",
+      "header": "Copyright (c) Jetstream Labs, LLC. All Rights Reserved.\r\n\r\nThis software is licensed under the MIT License and free to use,\r\nguided by the included LICENSE file. For any required original\r\nlicenses, see the licenses directory.\r\n\r\nMade with ♥ in the QC."
+    }
+  }
 }

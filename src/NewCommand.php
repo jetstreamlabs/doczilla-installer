@@ -1,13 +1,21 @@
 <?php
 
+/**
+ * Copyright (c) Jetstream Labs, LLC. All Rights Reserved.
+ *
+ * This software is licensed under the MIT License and free to use,
+ * guided by the included LICENSE file. For any required original
+ * licenses, see the licenses directory.
+ *
+ * Made with ♥ in the QC.
+ */
+
 namespace Doczilla\Installer\Console;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\ProcessUtils;
 use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\multiselect;
-use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -15,6 +23,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -90,15 +99,13 @@ class NewCommand extends Command
    * @param  \Symfony\Component\Console\Output\OutputInterface  $output
    * @return int
    */
-  protected function execute(InputInterface $input, OutputInterface $output)
+  protected function execute(InputInterface $input, OutputInterface $output): int
   {
     $name = $input->getArgument('name');
 
     $directory = $name !== '.' ? getcwd().'/'.$name : '.';
 
     $this->composer = new Composer(new Filesystem(), $directory);
-
-    //$version = $this->getVersion($input);
 
     if (! $input->getOption('force')) {
       $this->verifyApplicationDoesntExist($directory);
@@ -176,12 +183,12 @@ class NewCommand extends Command
    */
   protected function createRepository(string $directory, InputInterface $input, OutputInterface $output)
   {
-    $branch = $input->getOption('branch') ?: $this->defaultBranch();
+    $branch = $this->defaultBranch();
 
     $commands = [
       'git init -q',
       'git add .',
-      'git commit -q -m "Set up a fresh Laravel app"',
+      'git commit -q -m "Set up a fresh Doczilla app"',
       "git branch -M {$branch}",
     ];
 
@@ -276,17 +283,6 @@ class NewCommand extends Command
   protected function canResolveHostname($hostname)
   {
     return gethostbyname($hostname.'.') !== $hostname.'.';
-  }
-
-  /**
-   * Get the version that should be downloaded.
-   *
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @return string
-   */
-  protected function getVersion(InputInterface $input)
-  {
-    return '';
   }
 
   /**
