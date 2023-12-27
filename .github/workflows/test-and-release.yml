@@ -45,7 +45,7 @@ jobs:
 
   linux_tests:
     runs-on: ubuntu-latest
-    needs: static_analysis
+    needs: [static_analysis]
 
     strategy:
       fail-fast: true
@@ -74,7 +74,7 @@ jobs:
 
   macos_tests:
     runs-on: macos-latest
-    needs: static_analysis
+    needs: [static_analysis, linux_tests]
 
     strategy:
       fail-fast: true
@@ -102,7 +102,7 @@ jobs:
         run: vendor/bin/pest -vvv
 
   windows_tests:
-    runs-on: windows-latest
+    runs-on: [static_analysis, linux_tests, macos_tests]
 
     strategy:
       fail-fast: true
@@ -138,7 +138,7 @@ jobs:
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
-    needs: [static_analysis, linux_tests, windows_tests]
+    needs: [static_analysis, linux_tests, macos_tests, windows_tests]
 
     steps:
       - name: Checkout Branch
