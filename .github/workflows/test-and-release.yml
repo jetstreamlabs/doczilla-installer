@@ -68,7 +68,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit tests/Unit/NewCommandTest.php --verbose
+        run: vendor/bin/phpunit tests/Unit/NewCommandTest.php
 
   release:
     name: Run Release
