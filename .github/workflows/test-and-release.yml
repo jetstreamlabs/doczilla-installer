@@ -102,7 +102,8 @@ jobs:
         run: vendor/bin/pest -vvv
 
   windows_tests:
-    runs-on: [static_analysis, linux_tests, macos_tests]
+    runs-on: windows-latest
+    needs: [static_analysis, linux_tests, macos_tests]
 
     strategy:
       fail-fast: true
