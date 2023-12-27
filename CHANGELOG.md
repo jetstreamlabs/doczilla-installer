@@ -1,5 +1,12 @@
 # Release Notes
 
+## [1.0.3](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.2...v1.0.3) (2023-12-27)
+
+
+### Code Refactoring
+
+* fixing tests and commands ([6f66794](https://github.com/jetstreamlabs/doczilla-installer/commit/6f6679433ee90d8a2c567ecde0a308f4b48b2335))
+
 ## [1.0.2](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.1...v1.0.2) (2023-12-25)
 
 
