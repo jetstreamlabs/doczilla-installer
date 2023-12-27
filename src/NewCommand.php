@@ -34,7 +34,7 @@ class NewCommand extends Command
   /**
    * The Composer instance.
    *
-   * @var \Illuminate\Support\Composer
+   * @var Composer
    */
   protected $composer;
 
@@ -59,8 +59,8 @@ class NewCommand extends Command
   /**
    * Interact with the user before validating the input.
    *
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+   * @param InputInterface  $input
+   * @param OutputInterface  $output
    * @return void
    */
   protected function interact(InputInterface $input, OutputInterface $output)
@@ -95,8 +95,8 @@ class NewCommand extends Command
   /**
    * Execute the command.
    *
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+   * @param InputInterface  $input
+   * @param OutputInterface  $output
    * @return int
    */
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -116,6 +116,8 @@ class NewCommand extends Command
     }
 
     $composer = $this->findComposer();
+
+    putenv('APP_ENV='.getenv('APP_ENV'));
 
     $commands = [
       $composer." create-project doczilla/doczilla \"$directory\" --remove-vcs --prefer-dist",
@@ -177,8 +179,8 @@ class NewCommand extends Command
    * Create a Git repository and commit the base Laravel skeleton.
    *
    * @param  string  $directory
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+   * @param InputInterface  $input
+   * @param OutputInterface  $output
    * @return void
    */
   protected function createRepository(string $directory, InputInterface $input, OutputInterface $output)
@@ -200,8 +202,8 @@ class NewCommand extends Command
    *
    * @param  string  $message
    * @param  string  $directory
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+   * @param InputInterface  $input
+   * @param OutputInterface  $output
    * @return void
    */
   protected function commitChanges(string $message, string $directory, InputInterface $input, OutputInterface $output)
@@ -223,8 +225,8 @@ class NewCommand extends Command
    *
    * @param  string  $name
    * @param  string  $directory
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+   * @param InputInterface  $input
+   * @param OutputInterface  $output
    * @return void
    */
   protected function pushToGitHub(string $name, string $directory, InputInterface $input, OutputInterface $output)
@@ -313,14 +315,16 @@ class NewCommand extends Command
    * Run the given commands.
    *
    * @param  array  $commands
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+   * @param InputInterface  $input
+   * @param OutputInterface  $output
    * @param  string|null  $workingPath
    * @param  array  $env
-   * @return \Symfony\Component\Process\Process
+   * @return Process
    */
   protected function runCommands($commands, InputInterface $input, OutputInterface $output, string $workingPath = null, array $env = [])
   {
+    $env = array_merge($_ENV, $env);
+
     if (! $output->isDecorated()) {
       $commands = array_map(function ($value) {
         if (str_starts_with($value, 'chmod')) {

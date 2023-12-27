@@ -13,12 +13,14 @@ permissions:
 
 jobs:
   static_analysis:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: true
+      matrix:
+        php: [8.2, 8.3]
 
-    name: Static Analysis
+    name: PHP ${{ matrix.php }} - Static Analysis
 
     steps:
       - name: Checkout code
@@ -27,7 +29,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: ${{ matrix.php }}
           tools: composer:v2
           coverage: none
 
@@ -42,15 +44,15 @@ jobs:
         run: vendor/bin/phpstan
 
   linux_tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: static_analysis
 
     strategy:
       fail-fast: true
       matrix:
-        php: [8.2]
+        php: [8.2, 8.3]
 
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }} - Linux
 
     steps:
       - name: Checkout code
@@ -68,12 +70,75 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit tests/Unit/NewCommandTest.php
+        run: vendor/bin/pest -vvv
+
+  macos_tests:
+    runs-on: macos-latest
+    needs: static_analysis
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.2, 8.3]
+
+    name: PHP ${{ matrix.php }} - MacOS
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Execute tests
+        run: vendor/bin/pest -vvv
+
+  windows_tests:
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.2, 8.3]
+
+    name: PHP ${{ matrix.php }} - Windows
+
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          ini-values: error_reporting=E_ALL, memory_limit=512M
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Execute tests
+        run: vendor/bin/pest -vvv
 
   release:
-    name: Run Release
+    name: Semantic Release
     runs-on: ubuntu-latest
-    needs: [static_analysis, linux_tests]
+    needs: [static_analysis, linux_tests, windows_tests]
 
     steps:
       - name: Checkout Branch
