@@ -1,5 +1,19 @@
 # Release Notes
 
+## [1.0.6](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.5...v1.0.6) (2023-12-27)
+
+
+### Bug Fixes
+
+* downgrade console and process to 6.0 ([ee67c6a](https://github.com/jetstreamlabs/doczilla-installer/commit/ee67c6aa3bc152d2aaf42c30138770bbcd45a241))
+
+
+### Maintenance
+
+* **deps:** bump actions/checkout from 3 to 4 ([be27c59](https://github.com/jetstreamlabs/doczilla-installer/commit/be27c59369f9f552c63f4055a956358b58dee9ac))
+* **deps:** bump actions/github-script from 6 to 7 ([132c35e](https://github.com/jetstreamlabs/doczilla-installer/commit/132c35e24e4fffff17ec4b8a58891baaaf8a7eac))
+* **deps:** bump peter-evans/create-or-update-comment from 2 to 3 ([8c27940](https://github.com/jetstreamlabs/doczilla-installer/commit/8c279403a6902e3e2cf83560f3d295fc646d2967))
+
 ## [1.0.5](https://github.com/jetstreamlabs/doczilla-installer/compare/v1.0.4...v1.0.5) (2023-12-27)
 
 
